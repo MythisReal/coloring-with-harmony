@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Markerkompassen</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="setEyebrow">Marker-set</p>
+          <h1>Markerkompassen</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="copyPalette" type="button" title="Kopiera aktuell palett" aria-label="Kopiera aktuell palett">
+            <span aria-hidden="true">⧉</span>
+          </button>
+          <button class="icon-button" id="printPalette" type="button" title="Skriv ut palettblad" aria-label="Skriv ut palettblad">
+            <span aria-hidden="true">⎙</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="workspace" aria-label="Färgverktyg">
+        <aside class="control-panel">
+          <label class="field">
+            <span>Vilket set använder du?</span>
+            <select id="setSelect"></select>
+          </label>
+
+          <div class="section-title">
+            <span>Baspenna</span>
+            <button class="small-button" id="randomize" type="button">Slumpa</button>
+          </div>
+
+          <label class="field">
+            <span>Sök nummer eller namn</span>
+            <input id="markerSearch" type="search" autocomplete="off" placeholder="t.ex. 71, Coral, Green" />
+          </label>
+
+          <label class="field">
+            <span>Färgfamilj</span>
+            <select id="familyFilter"></select>
+          </label>
+
+          <div class="selected-marker" id="selectedMarker"></div>
+
+          <div class="scheme-block">
+            <div class="section-title">
+              <span>Harmoni</span>
+            </div>
+            <div class="scheme-tabs" id="schemeTabs" role="tablist" aria-label="Färgharmonier"></div>
+            <p class="scheme-note" id="schemeNote"></p>
+          </div>
+
+          <div class="rule-card">
+            <div class="ratio-row">
+              <span>Dominant</span>
+              <span>Stöd</span>
+              <span>Accent</span>
+            </div>
+            <p>En enkel balans för målarböcker: låt en färg ta mest plats, låt en stötta, och spara den starkaste kontrasten till små detaljer.</p>
+          </div>
+        </aside>
+
+        <section class="main-panel">
+          <div class="wheel-panel">
+            <canvas id="colorWheel" width="420" height="420" aria-label="Interaktiv färgcirkel"></canvas>
+            <div class="wheel-legend">
+              <span><i class="dot selected-dot"></i>vald penna</span>
+              <span><i class="dot harmony-dot"></i>förslag</span>
+              <span><i class="dot marker-dot"></i>pennor i setet</span>
+            </div>
+          </div>
+
+          <section class="palette-panel" aria-label="Aktuell palett">
+            <div class="section-title">
+              <span id="paletteTitle">Palett</span>
+              <span class="soft-tag" id="paletteMood">klar</span>
+            </div>
+            <div class="palette-grid" id="paletteGrid"></div>
+            <div class="blend-strip" id="blendStrip"></div>
+          </section>
+        </section>
+      </section>
+
+      <section class="motif-section" aria-label="Motivpaletter">
+        <div class="section-title">
+          <span>Snabbpaletter för motiv</span>
+          <span class="soft-tag">färdiga recept</span>
+        </div>
+        <div class="motif-grid" id="motifGrid"></div>
+      </section>
+
+      <section class="library-section" aria-label="Pennbibliotek">
+        <div class="section-title">
+          <span>Pennbibliotek</span>
+          <span class="soft-tag" id="libraryCount"></span>
+        </div>
+        <div class="marker-grid" id="markerGrid"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
