@@ -148,6 +148,86 @@ const promarkerMarkers = [
   { id: "Black", name: "Black", hex: "#171717", family: "Gråskala" }
 ];
 
+const nassauMarkerIds = [
+  "33",
+  "35",
+  "37",
+  "140",
+  "14",
+  "23",
+  "339",
+  "4",
+  "12",
+  "2",
+  "1",
+  "28",
+  "7",
+  "337",
+  "147",
+  "338",
+  "88",
+  "84",
+  "5",
+  "86",
+  "82",
+  "81",
+  "73",
+  "325",
+  "59",
+  "46",
+  "47",
+  "179",
+  "143",
+  "67",
+  "183",
+  "68",
+  "64",
+  "69",
+  "71",
+  "72",
+  "25",
+  "26",
+  "141",
+  "103",
+  "96",
+  "97",
+  "94",
+  "WG2",
+  "WG4",
+  "WG6",
+  "0",
+  "120"
+];
+
+const nassauOverrides = [
+  { id: "14", name: "Orange Red", hex: "#ff7043", family: "Gul & orange" },
+  { id: "23", name: "Golden Yellow", hex: "#ffb43d", family: "Gul & orange" },
+  { id: "339", name: "Pale Coral", hex: "#ffa79a", family: "Hud & pastell" },
+  { id: "2", name: "Deep Rose", hex: "#d92363", family: "Rosa & rött" },
+  { id: "7", name: "Light Rose", hex: "#f78db8", family: "Rosa & rött" },
+  { id: "337", name: "Pastel Pink", hex: "#ffc0d4", family: "Rosa & rött" },
+  { id: "338", name: "Pale Lavender Pink", hex: "#d9c2e8", family: "Lila" },
+  { id: "81", name: "Magenta", hex: "#b8239f", family: "Lila" },
+  { id: "325", name: "Pale Mint", hex: "#aeeed4", family: "Grön" },
+  { id: "46", name: "Yellow Green", hex: "#9ddc58", family: "Grön" },
+  { id: "67", name: "Aqua Blue", hex: "#36c1d4", family: "Turkos & blå" },
+  { id: "103", name: "Cream Beige", hex: "#ead4a6", family: "Hud & pastell" },
+  { id: "94", name: "Raw Sienna", hex: "#b17a52", family: "Jord & brun" },
+  { id: "WG2", name: "Warm Grey", hex: "#cec8c9", family: "Gråskala" }
+];
+
+const clasMarkerById = new Map(clasMarkers.map((marker) => [marker.id, marker]));
+const nassauOverrideById = new Map(nassauOverrides.map((marker) => [marker.id, marker]));
+const nassauMarkers = nassauMarkerIds.map((id) => {
+  const marker = nassauOverrideById.get(id) || clasMarkerById.get(id) || {
+    id,
+    name: `Nassau ${id}`,
+    hex: "#b8bec8",
+    family: "Gråskala"
+  };
+  return { ...marker };
+});
+
 const familyOrder = [
   "Rosa & rött",
   "Hud & pastell",
@@ -301,6 +381,57 @@ const promarkerMotifs = [
   }
 ];
 
+const nassauMotifs = [
+  {
+    id: "skin",
+    title: "Hud och mjuk värme",
+    text: "Lägg 103/26 tunt först, använd rosa försiktigt och bygg skugga med 97 eller 96.",
+    ids: ["103", "26", "25", "339", "97", "96"]
+  },
+  {
+    id: "forest",
+    title: "Blad och grönska",
+    text: "Pale Mint och Pale Green ger ljus, 46/47 bygger färg och 94 dämpar naturtonen.",
+    ids: ["325", "59", "46", "47", "94", "WG4"]
+  },
+  {
+    id: "ocean",
+    title: "Hav och is",
+    text: "Mint Blue i högdagrar, aqua/turkos i mellanläge och Prussian Blue för djup.",
+    ids: ["143", "179", "67", "183", "68", "69"]
+  },
+  {
+    id: "sunset",
+    title: "Solnedgång",
+    text: "Gult till orange i stora fält, rött och lila som små skuggade accenter.",
+    ids: ["37", "35", "33", "23", "140", "73"]
+  },
+  {
+    id: "flowers",
+    title: "Rosa blomma",
+    text: "Pastellrosa till körsbärsrött i kronblad, lilaton i djup och grönt som kontrast.",
+    ids: ["337", "28", "7", "5", "147", "47"]
+  },
+  {
+    id: "vintage",
+    title: "Vintage och papper",
+    text: "Krämiga gula och bruna toner för trä, kartor, gamla böcker och tyg.",
+    ids: ["141", "103", "94", "97", "96", "WG4"]
+  },
+  {
+    id: "jewel",
+    title: "Juveltoner",
+    text: "Mättad magenta, lila och blå för magi, glas, dekor och starka accenter.",
+    ids: ["86", "81", "73", "71", "69", "120"]
+  },
+  {
+    id: "softshadow",
+    title: "Mjuk skuggning",
+    text: "Blender och varma grå steg hjälper dig tona skuggor utan att färgen smutsas ned.",
+    ids: ["0", "WG2", "WG4", "WG6", "96", "120"]
+  }
+];
+
 const markerSets = {
   twin120: {
     id: "twin120",
@@ -319,6 +450,15 @@ const markerSets = {
     defaultMarkerId: "True Blue",
     markers: promarkerMarkers,
     motifs: promarkerMotifs
+  },
+  nassau48: {
+    id: "nassau48",
+    label: "Nassau Fine Art Dual Markers 48-pack",
+    shortLabel: "Nassau Fine Art 48-pack",
+    searchPlaceholder: "t.ex. 33, 143, WG4",
+    defaultMarkerId: "68",
+    markers: nassauMarkers,
+    motifs: nassauMotifs
   }
 };
 
@@ -601,7 +741,7 @@ function getVisibleMarkers() {
   return markers.filter((marker) => {
     const familyMatch = state.family === "Alla" || marker.family === state.family;
     const haystack = `${marker.id} ${marker.name} ${marker.family}`.toLowerCase();
-    return familyMatch && haystack.includes(state.search);
+    return familyMatch && haystack.includes(state.search.toLowerCase());
   });
 }
 
