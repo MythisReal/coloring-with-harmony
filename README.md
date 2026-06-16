@@ -21,7 +21,6 @@ Direktlänkar:
 Promarker 24-listan bygger på Winsor & Newtons produktsida för Promarker 24 Arts & Illustration. Nassau 48-listan bygger på de färgnummer och den produktbild som lagts in med projektet; färger som inte redan fanns i 120-packdatabasen är visuellt approximerade. De digitala färgerna är approximerade för skärm och harmoniberäkning. Testa alltid färgerna på samma papper som målarboken innan du färglägger större ytor.
 
 
-
 # Color With Harmony - Alcohol-markers 
 
 A static, local app to find color combinations to alcohol chips.
